@@ -16,13 +16,13 @@ public class StateCensusAnalyser {
 * */
     public int loadIndianStateCodeData(String csvFilePath) throws CensusAnalyserException, IOException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            CsvToBean<StateCensusAnalyser>csvToBean = new CsvToBeanBuilder<StateCensusAnalyser>(reader)
-                    .withType(StateCensusAnalyser.class)
+            CsvToBean<CSVStateCensus>csvToBean = new CsvToBeanBuilder<CSVStateCensus>(reader)
+                    .withType(CSVStateCensus.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            Iterator<StateCensusAnalyser> iterator = csvToBean.iterator();
-            Iterable<StateCensusAnalyser> csvIterable = () -> iterator;
+            Iterator<CSVStateCensus> iterator = csvToBean.iterator();
+            Iterable<CSVStateCensus> csvIterable = () -> iterator;
             int count = (int) StreamSupport.stream(csvIterable.spliterator(), true).count();
             return count;
         } catch (IOException e) {
